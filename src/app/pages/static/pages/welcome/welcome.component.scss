@@ -1,0 +1,81 @@
+/* welcome.component.scss */
+.flex-container {
+  height: calc(100vh - 64px);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.row {
+  width: auto;
+}
+
+mat-card {
+  max-width: 800px;
+  min-width: 400px;
+  text-align: center;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+mat-card-title {
+  font-size: 1.5rem; /* Reducido para ahorrar espacio */
+  font-weight: bold;
+  color: #333;
+}
+
+mat-card-subtitle {
+  font-size: 1rem; /* Reducido para ahorrar espacio */
+  color: #555;
+}
+
+.responsive-image {
+  object-fit: cover; /* Para mantener la proporción */
+  width: 100%;
+}
+
+mat-card-content {
+  padding: 10px;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center; /* Centrar el contenido */
+  margin-bottom: 10px; /* Espacio adicional */
+}
+
+mat-card-actions {
+  padding: 10px;
+  display: flex;
+  justify-content: center; /* Centrar el botón */
+  width: 100%;
+}
+
+mat-card-footer {
+  padding: 8px;
+  font-size: 0.8rem;
+  color: #888;
+  border-top: 1px solid #e0e0e0;
+  background-color: #fafafa;
+  border-radius: 0 0 8px 8px;
+  font-style: italic;
+}
+
+.contact-button {
+  font-size: 0.9rem;
+  border-radius: 20px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-button:hover {
+  background-color: #1976d2; /* Color más oscuro al pasar el ratón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}

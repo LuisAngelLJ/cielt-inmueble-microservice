@@ -1,0 +1,19 @@
+.navegacion-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    color: #DBCDE6;
+  }
+
+  &:active {
+    color: #DBCDE6;
+  }
+}

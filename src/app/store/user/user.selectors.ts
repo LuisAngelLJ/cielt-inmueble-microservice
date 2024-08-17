@@ -19,5 +19,8 @@ export const getLoading = createSelector(
 //saber si el usuario esta en sesion o no
 export const getIsAuthorized = createSelector(
   getUserState,
-  (state) => !!state.email
+  (state) => {
+    console.log('User state:', state);
+    return !!state.email;
+  }
 );

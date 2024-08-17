@@ -8,6 +8,7 @@ import { Observable, of} from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { UserResponse } from './user.models';
 import { environment } from 'environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
 //definir action principal
 type Action = fromActions.All;
@@ -76,26 +77,34 @@ export class UserEffects {
 
   //refrescar el navegador
   init: Observable<Action> = createEffect(() =>
-    this.actions.pipe(//evaluación de transacción
-      ofType(fromActions.Types.INIT), // definir la operacion que quiero trabajar
-      switchMap( async () => localStorage.getItem('token')), // obtener los parametros de localStarage
+    this.actions.pipe(
+      ofType(fromActions.Types.INIT),
+      tap(() => console.log('INIT action triggered')),
+      switchMap(() => of(localStorage.getItem('token'))),
       switchMap(token => {
-        if(token) {
-          return this._httpClient.get<UserResponse>(`${environment.url}api/user`)
-          .pipe(//evaluar el posible resultado de la url
-            tap((response: UserResponse) => { //respuesta satisfactoria
-              console.log("Usuario en sesion", response);
-            }),
-            map((response: UserResponse) => new fromActions.InitAuthorized(response.email, response || null)),//devuelve un observable de tipo action
-            catchError(err => { //respuesta en caso de error
-              return of(new fromActions.InitError(err.message));//devuelve un observable de tipo action con ayuda de of
-            })
-          )
-        }else {
+        if (token) {
+          // Crear los headers con el token
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          });
+
+          // Hacer la petición GET con los headers
+          return this._httpClient.get<UserResponse>(`${environment.url}api/user`, { headers })
+            .pipe(
+              tap((response: UserResponse) => {
+                console.log("Usuario en sesión", response);
+              }),
+              map((response: UserResponse) => new fromActions.InitAuthorized(response.email, response || null)),
+              catchError(err => {
+                console.error("Error al inicializar la sesión", err);
+                return of(new fromActions.InitError(err.message));
+              })
+            );
+        } else {
+          console.log("Token no encontrado, usuario no autorizado");
           return of(new fromActions.InitUnauthorized());
         }
-      }
-      )
+      })
     )
-  );
+);
 }

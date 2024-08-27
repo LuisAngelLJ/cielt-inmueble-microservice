@@ -4,14 +4,18 @@ import { AuthGuard } from '@app/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
+    path: 'nuevo',
+    loadChildren: () => import('./inmueble-nuevo/inmueble-nuevo.module').then(m=>m.InmuebleNuevoModule),
     canActivate: [AuthGuard]
   },
-  {path: '404', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule)}
+  {
+    path: 'lista',
+    loadChildren: () => import('./inmueble-lista/inmueble-lista.module').then(m=>m.InmuebleListaModule)
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class StaticRoutingModule { }
+export class InmuebleRoutingModule { }

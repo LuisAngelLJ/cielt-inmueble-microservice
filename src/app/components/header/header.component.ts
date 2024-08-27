@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   onSignOut(): void {
     this.signOut.emit();
-    this.router.navigate(['/']);
   }
 
 }
